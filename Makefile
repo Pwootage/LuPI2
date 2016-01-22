@@ -5,6 +5,11 @@ CC?=cc
 CFLAGS?=-O2 -std=c99
 LDFLAGS+= -static
 
+# Docker settings
+DOCKER_IMG?=lupi
+DOCKERFLAGS=run --rm -v $(pwd):/build/ -w /build/
+DOCKER=docker
+
 # Project specific stuff
 BUILD = bin/
 SOURCE = src/c
@@ -60,6 +65,10 @@ clean: cleanresources
 
 smallclean:
 	find . -name '*~' -type f -exec rm {} \;
+
+# Docker image
+docker-image:
+	${DOCKER} build -t ${DOCKER_IMG} .
 
 # Other
 

@@ -1,0 +1,12 @@
+FROM ubuntu:15.10
+
+# vim-common? Well, has xxd, apparently
+RUN apt-get update && \
+  apt-get install -y \
+    make \
+    gcc \
+    g++ \
+    vim-common \
+    exuberant-ctags && \
+  apt-get clean && \
+  rm -rf /var/lib/apt/lists/*

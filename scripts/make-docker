@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -e
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../" && pwd )"
+cd "${DIR}"
+
+DOCKER_IMG="lupi-build"
+DOCKERFLAGS="run --rm -v ${DIR}:/build/ -w /build/"
+DOCKER="docker"
+
+if [[ -z $(docker images -q lupi-build) ]]; then
+  echo "Building docker image ${DOCKER_IMG}..."
+  ${DOCKER} build -t ${DOCKER_IMG} -f Dockerfile.build .
+fi
+
+echo "Running 'make $@' using docker image ${DOCKER_IMG}..."
+${DOCKER} ${DOCKERFLAGS} ${DOCKER_IMG} make $@

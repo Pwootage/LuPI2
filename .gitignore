@@ -2,3 +2,9 @@
 *.o
 /bin
 /src/c/gen
+# OS's to put in
+OpenOS
+Plan9k
+# ctag files
+.tags
+.tags1
